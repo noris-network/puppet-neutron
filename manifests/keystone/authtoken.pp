@@ -228,6 +228,7 @@ class neutron::keystone::authtoken(
   $token_cache_time               = $::os_service_default,
 ) {
 
+  notice($password)
   if is_service_default($password) and ! $::neutron::server::password {
     fail('Please set password for neutron service user')
   }

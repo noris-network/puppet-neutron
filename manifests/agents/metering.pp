@@ -98,12 +98,12 @@ class neutron::agents::metering (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  service { 'neutron-metering-service':
-    ensure => $service_ensure,
-    name   => $::neutron::params::metering_agent_service,
-    enable => $enabled,
-    tag    => 'neutron-service',
+    service { 'neutron-metering-service':
+      ensure => $service_ensure,
+      name   => $::neutron::params::metering_agent_service,
+      enable => $enabled,
+      tag    => 'neutron-service',
+    }
   }
 }
