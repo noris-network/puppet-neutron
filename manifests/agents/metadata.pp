@@ -128,12 +128,12 @@ class neutron::agents::metadata (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  service { 'neutron-metadata':
-    ensure => $service_ensure,
-    name   => $::neutron::params::metadata_agent_service,
-    enable => $enabled,
-    tag    => 'neutron-service',
+    service { 'neutron-metadata':
+      ensure => $service_ensure,
+      name   => $::neutron::params::metadata_agent_service,
+      enable => $enabled,
+      tag    => 'neutron-service',
+    }
   }
 }

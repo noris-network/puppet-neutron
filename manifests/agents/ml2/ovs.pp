@@ -339,13 +339,13 @@ class neutron::agents::ml2::ovs (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  service { 'neutron-ovs-agent-service':
-    ensure => $service_ensure,
-    name   => $::neutron::params::ovs_agent_service,
-    enable => $enabled,
-    tag    => ['neutron-service', 'neutron-db-sync-service'],
+    service { 'neutron-ovs-agent-service':
+      ensure => $service_ensure,
+      name   => $::neutron::params::ovs_agent_service,
+      enable => $enabled,
+      tag    => ['neutron-service', 'neutron-db-sync-service'],
+    }
   }
 
   if $::neutron::params::ovs_cleanup_service {

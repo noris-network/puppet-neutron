@@ -402,14 +402,14 @@ class neutron::server (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  service { 'neutron-server':
-    ensure     => $service_ensure,
-    name       => $service_name,
-    enable     => $enabled,
-    hasstatus  => true,
-    hasrestart => true,
-    tag        => ['neutron-service', 'neutron-db-sync-service'],
+    service { 'neutron-server':
+      ensure     => $service_ensure,
+      name       => $service_name,
+      enable     => $enabled,
+      hasstatus  => true,
+      hasrestart => true,
+      tag        => ['neutron-service', 'neutron-db-sync-service'],
+    }
   }
 }
