@@ -68,7 +68,7 @@ class neutron::agents::vpnaas (
     /\.OpenSwan/: {
       Package['openswan'] -> Package<| title == 'neutron-vpnaas-agent' |>
       package { 'openswan':
-        ensure => present,
+        ensure => $package_ensure,
         name   => $::neutron::params::openswan_package,
         tag    => ['neutron-support-package', 'openstack'],
       }
@@ -79,10 +79,18 @@ class neutron::agents::vpnaas (
       } else {
         Package['libreswan'] -> Package<| title == 'neutron-vpnaas-agent' |>
         package { 'libreswan':
-          ensure => present,
+          ensure => $package_ensure,
           name   => $::neutron::params::libreswan_package,
           tag    => ['neutron-support-package', 'openstack'],
         }
+      }
+    }
+    /\.StrongSwan/: {
+      Package['strongswan'] -> Package<| title == 'neutron-vpnaas-agent' |>
+      package { 'strongswan':
+        ensure => $package_ensure,
+        name   => 'strongswan', # $::neutron::params::strongswan_package,
+        tag    => ['neutron-support-package', 'openstack'],
       }
     }
     default: {
@@ -125,12 +133,12 @@ class neutron::agents::vpnaas (
     } else {
       $service_ensure = 'stopped'
     }
+    service { 'neutron-vpnaas-service':
+      ensure => $service_ensure,
+      name   => $::neutron::params::vpnaas_agent_service,
+      enable => $enabled,
+      tag    => 'neutron-service',
+    }
   }
 
-  service { 'neutron-vpnaas-service':
-    ensure => $service_ensure,
-    name   => $::neutron::params::vpnaas_agent_service,
-    enable => $enabled,
-    tag    => 'neutron-service',
-  }
 }
